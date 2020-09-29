@@ -1,0 +1,14 @@
+namespace: goneri
+name: utils
+version: 0.0.1
+readme: README.md
+authors:
+  - Gonéri Le Bouder (@goneri)
+description: A collection of tools of Ansible
+license_file: COPYING
+tags: []
+# NOTE: No more dependencies can be added to this list
+dependencies: []
+repository: https://github.com/goneri/ansible-collection-goneri.utils
+homepage: https://github.com/goneri/ansible-collection-goneri.utils
+issues: https://github.com/ansible-collections/community.general/issues
