@@ -7,14 +7,18 @@
 - Are you lazy and feel like this should be automated!?
 - So am I!... And you may like `update_return_section`!
 
-`update_return_section` is callback plugin that will collect the output of the tasks and inject it in the `RETURN` section of the associated modules. 
+`update_return_section` is callback plugin that will:
+
+- collect the output of the tasks
+- compare it with the existing RETURN block
+- if the new block is longer, it will inject it in the `RETURN` section
 
 oh also, THIS CALLBACK WILL REWRITE THE CONTENT OF YOUR MODULES BEHIND YOUR BACK. So ensure your work environment is safe before using it.
 
 ## To summarize the benefit
 
-- always keep the RETURN block up to date
-- be more awaiavoid the case where a module
+- always keep the RETURN block up to date.
+- easier to spot the case when the module output get changed by new change.
 
 ## Installation
 
