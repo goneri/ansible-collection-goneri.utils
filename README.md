@@ -1,50 +1,37 @@
 # A collection of tools for Ansible
 
-## update_return_section
+## Collect the task results
 
-- Do you write Ansible modules?
-- Do you need to maintain all these [RETURN sections](https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_documenting.html#documentation-block)?
-- Are you lazy and feel like this should be automated!?
-- So am I!... And you may like `update_return_section`!
+Install the `goneri.utils` collection and define the following environment variables:
 
-`update_return_section` is callback plugin that will:
-
-- collect the output of the tasks
-- compare it with the existing RETURN block
-- if the new block is longer, it will inject it in the `RETURN` section
-
-oh also, THIS CALLBACK WILL REWRITE THE CONTENT OF YOUR MODULES BEHIND YOUR BACK. So ensure your work environment is safe before using it.
-
-## To summarize the benefit
-
-- always keep the RETURN block up to date.
-- easier to spot the case when the module output get changed by new change.
-
-## Installation
+- `ANSIBLE_CALLBACK_WHITELIST`: Ask Ansible to load the callback plugin.
+- `COLLECT_TASK_OUTPUTS_COLLECTION`: Specify the name of the collection.
+- `COLLECT_TASK_OUTPUTS_TARGET_DIR`: Target directory where to write the results.
 
 ```shell
-mkdir ~/.ansible/collections/ansible_collections/goneri
-git clone https://github.com/goneri/ansible-collection-goneri.utils  ~/.ansible/collections/ansible_collections/goneri/utils
+export ANSIBLE_CALLBACK_WHITELIST=goneri.utils.collect_task_outputs
+export COLLECT_TASK_OUTPUTS_COLLECTION=vmware.vmware_rest
+export COLLECT_TASK_OUTPUTS_TARGET_DIR=$(realpath ../../../../docs/source/vmware_rest_scenarios/task_outputs/)
 ```
 
-## Configuration
+You can now run you playbook:
 
-Add a `update_return_section.yml` in your collection's `meta` directory.
-
-```yaml
----
-enabled: true
-keys:
-# write a specific description for the id key (optional)
-  id:
-    description: moid of the resource
+```shell
+ansible-playbook playbook.yaml
 ```
+
+## inject_RETURN
+
+You can use the result to update the  [RETURN sections](https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_documenting.html#documentation-block) of your modules
+?
 
 ### Usage
 
-Frankly, it's rather simple :-)
-
-```shell:
-ANSIBLE_CALLBACK_WHITELIST=goneri.utils.update_return_section
-ansible-playbook playbook.yaml
+```shell
+./scripts/inject_RETURN.py ~/.ansible/collections/ansible_collections/vmware/vmware_rest/docs/source/vmware_rest_scenarios/task_outputs/ ~/git_repos/ansible-collections/vmware_rest/ --config-file config/inject_RETURN.yaml
 ```
+
+# To summarize the benefit
+
+- always keep the RETURN block up to date.
+- easier to spot the case when the module output get changed by new change.

@@ -43,9 +43,10 @@ class CallbackModule(CallbackBase):
             }
         except KeyError:
             self._display.display(
-                    "You must defined the following environment "
-                    "variable COLLECT_TASK_OUTPUTS_COLLECTION, "
-                    "COLLECT_TASK_OUTPUTS_TARGET_DIR")
+                "You must defined the following environment "
+                "variable COLLECT_TASK_OUTPUTS_COLLECTION, "
+                "COLLECT_TASK_OUTPUTS_TARGET_DIR"
+            )
 
         if not t.name:
             return
@@ -55,7 +56,9 @@ class CallbackModule(CallbackBase):
         )
         for namespace, collection in [i.split(".") for i in t.collections]:
             if f"{namespace}.{collection}" == config["collection"]:
-                self._display.display(f"The task uses {namespace}.{collection}, collecting result.")
+                self._display.display(
+                    f"The task uses {namespace}.{collection}, collecting result."
+                )
 
             collection_path = collection_root_dir / namespace / collection
             module_path = collection_path / "plugins" / "modules" / (t.action + ".py")
