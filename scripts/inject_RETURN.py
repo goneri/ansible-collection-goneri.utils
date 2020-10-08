@@ -79,7 +79,7 @@ for task_file in args.snippet_dir.glob("*task.yaml"):
     task_content = yaml.load(task_file.open())
     module_name = [
         i for i in task_content[0].keys() if i not in ["name", "register", "until"]
-    ][0]
+    ][0].split(".")[-1]
     task_name = task_content[0]["name"]
     module_file = args.collection_dir / "plugins" / "modules" / f"{module_name}.py"
     result_file = args.snippet_dir / re.sub(

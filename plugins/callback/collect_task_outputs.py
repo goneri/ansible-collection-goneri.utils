@@ -61,7 +61,10 @@ class CallbackModule(CallbackBase):
                 )
 
             collection_path = collection_root_dir / namespace / collection
-            module_path = collection_path / "plugins" / "modules" / (t.action + ".py")
+            module_name = t.action.split(".")[-1]
+            module_path = (
+                collection_path / "plugins" / "modules" / (module_name + ".py")
+            )
 
             if not module_path.exists():
                 continue
