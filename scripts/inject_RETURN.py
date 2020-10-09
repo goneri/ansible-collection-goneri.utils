@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import argparse
-import collections
 import re
 import json
 import yaml
