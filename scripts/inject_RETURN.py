@@ -70,12 +70,12 @@ def ansible_unsafe_to_python(data):
 
 
 if args.config_file:
-    config = yaml.load(args.config_file.open())
+    config = yaml.safe_load(args.config_file.open())
 else:
     config = {"keys": {}}
 
 for task_file in args.snippet_dir.glob("*task.yaml"):
-    task_content = yaml.load(task_file.open())
+    task_content = yaml.safe_load(task_file.open())
     module_name = [
         i for i in task_content[0].keys() if i not in ["name", "register", "until"]
     ][0].split(".")[-1]
